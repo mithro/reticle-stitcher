@@ -169,7 +169,8 @@ def create_reticle_pdf(tilemap_data, output_file="reticle.pdf"):
         spec_y -= line_height
 
     # Add detail callout showing seal ring structure
-    callout_y = spec_y - 30
+    # Increase spacing to avoid overlap with specs above
+    callout_y = spec_y - 60
     detail_box_width = 40
     detail_box_x = spec_x
 
