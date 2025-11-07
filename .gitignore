@@ -3,3 +3,22 @@
 *.oas
 *.csv
 .~lock.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Test files
+test_tilemap.csv
+test_reticle.pdf
+test_reticle-*.png
+test_output.pdf

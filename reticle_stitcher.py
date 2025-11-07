@@ -263,7 +263,9 @@ def main():
         else:
             return arg
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Tool for stitching a full MPW reticle using gf180mcu for delivery to a foundry."
+    )
     parser.add_argument(
         "manifest",
         help="The manifest CSV file.",
@@ -276,6 +278,13 @@ def main():
         metavar="FILE",
         type=lambda x: is_valid_file(parser, x),
     )
+    parser.add_argument(
+        "--output",
+        help="Output file for the reticle OASIS file (default: reticle.oas).",
+        metavar="OUTPUT_FILE",
+        type=str,
+        default="reticle.oas",
+    )
 
     args = vars(parser.parse_args())
 
@@ -286,7 +295,7 @@ def main():
     manifest_data = extract_size_position(manifest_data, tilemap_data)
 
     # Create the layout
-    create_reticle(manifest_data, tilemap_data)
+    create_reticle(manifest_data, tilemap_data, output_file=args["output"])
 
 
 if __name__ == "__main__":

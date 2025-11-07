@@ -5,13 +5,94 @@ Tool for stitching a full MPW reticle using gf180mcu for delivery to a foundry.
 > [!WARNING]
 > This tool is WIP.
 
+## Installation
+
+### Quick Start with Makefile
+
+The easiest way to set up dependencies is using the provided Makefile with [uv](https://github.com/astral-sh/uv) (recommended for faster installation):
+
+```bash
+# Install uv (optional, but recommended for speed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install PDF generation dependencies only
+make install-pdf
+
+# Or install all dependencies (PDF + OASIS generation)
+make install-all
+
+# Activate the virtual environment
+source .venv/bin/activate
+```
+
+The Makefile will automatically fall back to standard `pip` if `uv` is not available.
+
+### Manual Installation
+
+If you prefer not to use the Makefile:
+
+```bash
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install PDF generation dependencies
+pip install -r requirements.txt
+
+# Install OASIS generation dependencies (optional)
+pip install -r requirements-reticle.txt
+```
+
+### Available Make Targets
+
+```bash
+make help            # Show all available targets
+make install-pdf     # Install PDF generation dependencies only
+make install-reticle # Install OASIS generation dependencies only
+make install-all     # Install all dependencies
+make test-pdf        # Generate a test PDF
+make test-png        # Generate a test PDF and PNG preview (requires poppler-utils)
+make clean           # Remove generated files
+make clean-venv      # Remove virtualenv and generated files
+```
+
+**Note:** The `test-png` target requires `poppler-utils` to be installed for PDF to PNG conversion:
+- Ubuntu/Debian: `sudo apt-get install poppler-utils`
+- MacOS: `brew install poppler`
+- Fedora/RHEL: `sudo dnf install poppler-utils`
+
 ## Usage
+
+### Generating the Reticle OASIS File
 
 To run the stitcher, supply the manifest and tile map:
 
-```
+```bash
 python3 reticle_stitcher.py manifest-wsmpw1.csv tilemap-wsmpw1.csv
 ```
+
+You can specify a custom output file:
+
+```bash
+python3 reticle_stitcher.py manifest.csv tilemap.csv --output my_reticle.oas
+```
+
+### Generating PDF Documentation
+
+To generate a PDF documentation diagram of the reticle layout (similar to [caravel-gf180mcu/docs/reticle.pdf](https://github.com/efabless/caravel-gf180mcu/blob/main/docs/reticle.pdf)), use the separate `generate_reticle_pdf.py` script:
+
+```bash
+python3 generate_reticle_pdf.py tilemap-wsmpw1.csv -o reticle_docs.pdf
+```
+
+The PDF will include:
+- Overall reticle dimensions (32mm × 26mm)
+- Grid layout showing all tiles with seal rings
+- GF180MCU specifications and calculations
+- Dimension annotations
+- Project die dimensions
+
+Note: The PDF generation only requires the tilemap CSV file, not the manifest or GDS files.
 
 ## Manifest
 
