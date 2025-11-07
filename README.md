@@ -13,6 +13,31 @@ To run the stitcher, supply the manifest and tile map:
 python3 reticle_stitcher.py manifest-wsmpw1.csv tilemap-wsmpw1.csv
 ```
 
+### PDF Documentation
+
+To generate a PDF documentation diagram of the reticle layout (similar to [caravel-gf180mcu/docs/reticle.pdf](https://github.com/efabless/caravel-gf180mcu/blob/main/docs/reticle.pdf)), use the `--pdf` option:
+
+```
+python3 reticle_stitcher.py manifest-wsmpw1.csv tilemap-wsmpw1.csv --pdf reticle_docs.pdf
+```
+
+The PDF will include:
+- Overall reticle dimensions (32mm × 26mm)
+- Grid layout showing all tiles with seal rings
+- GF180MCU specifications and calculations
+- Dimension annotations
+- Project die dimensions
+
+### Additional Options
+
+- `--output`: Specify the output OASIS file (default: `reticle.oas`)
+- `--pdf`: Generate a PDF documentation diagram
+
+Example with all options:
+```
+python3 reticle_stitcher.py manifest.csv tilemap.csv --output my_reticle.oas --pdf my_reticle_docs.pdf
+```
+
 ## Manifest
 
 The manifest contains a list of all projects.
