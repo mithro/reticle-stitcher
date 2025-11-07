@@ -7,18 +7,26 @@ Tool for stitching a full MPW reticle using gf180mcu for delivery to a foundry.
 
 ## Usage
 
+### Generating the Reticle OASIS File
+
 To run the stitcher, supply the manifest and tile map:
 
-```
+```bash
 python3 reticle_stitcher.py manifest-wsmpw1.csv tilemap-wsmpw1.csv
 ```
 
-### PDF Documentation
+You can specify a custom output file:
 
-To generate a PDF documentation diagram of the reticle layout (similar to [caravel-gf180mcu/docs/reticle.pdf](https://github.com/efabless/caravel-gf180mcu/blob/main/docs/reticle.pdf)), use the `--pdf` option:
-
+```bash
+python3 reticle_stitcher.py manifest.csv tilemap.csv --output my_reticle.oas
 ```
-python3 reticle_stitcher.py manifest-wsmpw1.csv tilemap-wsmpw1.csv --pdf reticle_docs.pdf
+
+### Generating PDF Documentation
+
+To generate a PDF documentation diagram of the reticle layout (similar to [caravel-gf180mcu/docs/reticle.pdf](https://github.com/efabless/caravel-gf180mcu/blob/main/docs/reticle.pdf)), use the separate `generate_reticle_pdf.py` script:
+
+```bash
+python3 generate_reticle_pdf.py tilemap-wsmpw1.csv -o reticle_docs.pdf
 ```
 
 The PDF will include:
@@ -28,15 +36,7 @@ The PDF will include:
 - Dimension annotations
 - Project die dimensions
 
-### Additional Options
-
-- `--output`: Specify the output OASIS file (default: `reticle.oas`)
-- `--pdf`: Generate a PDF documentation diagram
-
-Example with all options:
-```
-python3 reticle_stitcher.py manifest.csv tilemap.csv --output my_reticle.oas --pdf my_reticle_docs.pdf
-```
+Note: The PDF generation only requires the tilemap CSV file, not the manifest or GDS files.
 
 ## Manifest
 
