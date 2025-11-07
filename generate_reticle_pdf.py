@@ -201,16 +201,16 @@ def create_reticle_pdf(tilemap_data, output_file="reticle.pdf"):
 
     # Labels for each layer
     label_x = detail_box_x + detail_box_width + 8
-    dim_x = detail_box_x + detail_box_width + 60
+    dim_x_right = detail_box_x + detail_box_width + 120  # Right edge for right-aligned text
 
     c.drawString(label_x, y_current + seal_ring_height / 2 - 2, "seal ring")
-    c.drawString(dim_x, y_current + seal_ring_height / 2 - 2, f"{SEAL_RING_SIZE} µm")
+    c.drawRightString(dim_x_right, y_current + seal_ring_height / 2 - 2, f"{SEAL_RING_SIZE} µm")
 
     c.drawString(label_x, y_current + seal_ring_height + saw_street_height / 2 - 2, "saw street")
-    c.drawString(dim_x, y_current + seal_ring_height + saw_street_height / 2 - 2, f"~{SAW_STREET_MINIMUM} µm")
+    c.drawRightString(dim_x_right, y_current + seal_ring_height + saw_street_height / 2 - 2, f"~{SAW_STREET_MINIMUM} µm")
 
     c.drawString(label_x, y_current + seal_ring_height * 2 + saw_street_height + seal_ring_height / 2 - 2, "seal ring")
-    c.drawString(dim_x, y_current + seal_ring_height * 2 + saw_street_height + seal_ring_height / 2 - 2, f"{SEAL_RING_SIZE} µm")
+    c.drawRightString(dim_x_right, y_current + seal_ring_height * 2 + saw_street_height + seal_ring_height / 2 - 2, f"{SEAL_RING_SIZE} µm")
 
     # Add project die dimensions (below the detail diagram)
     total_detail_height = seal_ring_height * 2 + saw_street_height
