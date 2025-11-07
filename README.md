@@ -5,6 +5,56 @@ Tool for stitching a full MPW reticle using gf180mcu for delivery to a foundry.
 > [!WARNING]
 > This tool is WIP.
 
+## Installation
+
+### Quick Start with Makefile
+
+The easiest way to set up dependencies is using the provided Makefile with [uv](https://github.com/astral-sh/uv) (recommended for faster installation):
+
+```bash
+# Install uv (optional, but recommended for speed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install PDF generation dependencies only
+make install-pdf
+
+# Or install all dependencies (PDF + OASIS generation)
+make install-all
+
+# Activate the virtual environment
+source .venv/bin/activate
+```
+
+The Makefile will automatically fall back to standard `pip` if `uv` is not available.
+
+### Manual Installation
+
+If you prefer not to use the Makefile:
+
+```bash
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install PDF generation dependencies
+pip install -r requirements.txt
+
+# Install OASIS generation dependencies (optional)
+pip install -r requirements-reticle.txt
+```
+
+### Available Make Targets
+
+```bash
+make help            # Show all available targets
+make install-pdf     # Install PDF generation dependencies only
+make install-reticle # Install OASIS generation dependencies only
+make install-all     # Install all dependencies
+make test-pdf        # Generate a test PDF
+make clean           # Remove generated files
+make clean-venv      # Remove virtualenv and generated files
+```
+
 ## Usage
 
 ### Generating the Reticle OASIS File

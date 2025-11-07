@@ -1,0 +1,2 @@
+# Reticle stitcher dependencies (OASIS/GDS generation)
+klayout>=0.28.0

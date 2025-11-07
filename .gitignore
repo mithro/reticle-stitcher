@@ -10,3 +10,14 @@ __pycache__/
 *$py.class
 *.so
 .Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Test files
+test_tilemap.csv
+test_reticle.pdf
+test_output.pdf
