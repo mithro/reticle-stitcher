@@ -20,4 +20,5 @@ env/
 # Test files
 test_tilemap.csv
 test_reticle.pdf
+test_reticle-*.png
 test_output.pdf

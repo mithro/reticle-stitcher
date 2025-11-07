@@ -51,9 +51,15 @@ make install-pdf     # Install PDF generation dependencies only
 make install-reticle # Install OASIS generation dependencies only
 make install-all     # Install all dependencies
 make test-pdf        # Generate a test PDF
+make test-png        # Generate a test PDF and PNG preview (requires poppler-utils)
 make clean           # Remove generated files
 make clean-venv      # Remove virtualenv and generated files
 ```
+
+**Note:** The `test-png` target requires `poppler-utils` to be installed for PDF to PNG conversion:
+- Ubuntu/Debian: `sudo apt-get install poppler-utils`
+- MacOS: `brew install poppler`
+- Fedora/RHEL: `sudo dnf install poppler-utils`
 
 ## Usage
 
