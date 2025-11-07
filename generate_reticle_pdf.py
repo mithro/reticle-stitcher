@@ -170,26 +170,50 @@ def create_reticle_pdf(tilemap_data, output_file="reticle.pdf"):
 
     # Add detail callout showing seal ring structure
     callout_y = spec_y - 30
-    detail_height = 80
+    detail_box_width = 40
+    detail_box_x = spec_x
 
+    # Draw seal ring / saw street diagram as stacked rectangles
+    # Top seal ring
+    seal_ring_height = 12
+    saw_street_height = 20
+
+    y_current = callout_y
+
+    # Draw rectangles to represent the layers (drawn BEFORE text to avoid overlap)
+    c.setStrokeColor(colors.red)
+    c.setFillColor(colors.Color(1, 0.9, 0.9))  # Light red fill
+    c.setLineWidth(0.8)
+    c.rect(detail_box_x, y_current, detail_box_width, seal_ring_height, fill=1, stroke=1)
+
+    c.setStrokeColor(colors.black)
+    c.setFillColor(colors.Color(0.95, 0.95, 0.95))  # Light gray fill
+    c.rect(detail_box_x, y_current + seal_ring_height, detail_box_width, saw_street_height, fill=1, stroke=1)
+
+    c.setStrokeColor(colors.red)
+    c.setFillColor(colors.Color(1, 0.9, 0.9))  # Light red fill
+    c.rect(detail_box_x, y_current + seal_ring_height + saw_street_height, detail_box_width, seal_ring_height, fill=1, stroke=1)
+
+    # Add text labels next to the diagram
+    c.setFillColor(colors.black)  # Reset to black for text
     c.setFont("Helvetica", 8)
-    c.drawString(spec_x + 60, callout_y + detail_height - 10, "seal ring")
-    c.drawString(spec_x + 60, callout_y + detail_height - 30, "saw street")
-    c.drawString(spec_x + 60, callout_y + detail_height - 50, "seal ring")
 
-    c.drawString(spec_x + 120, callout_y + detail_height - 10, f"{SEAL_RING_SIZE} µm")
-    c.drawString(spec_x + 120, callout_y + detail_height - 30, f"~{SAW_STREET_MINIMUM} µm")
-    c.drawString(spec_x + 120, callout_y + detail_height - 50, f"{SEAL_RING_SIZE} µm")
+    # Labels for each layer
+    label_x = detail_box_x + detail_box_width + 8
+    dim_x = detail_box_x + detail_box_width + 60
 
-    # Draw lines for the detail
-    c.setLineWidth(0.5)
-    for i, offset in enumerate([10, 30, 50]):
-        y_pos = callout_y + detail_height - offset
-        c.line(spec_x, y_pos - 2, spec_x + 50, y_pos - 2)
-        c.line(spec_x, y_pos + 2, spec_x + 50, y_pos + 2)
+    c.drawString(label_x, y_current + seal_ring_height / 2 - 2, "seal ring")
+    c.drawString(dim_x, y_current + seal_ring_height / 2 - 2, f"{SEAL_RING_SIZE} µm")
 
-    # Add project die dimensions
-    callout_y -= 20
+    c.drawString(label_x, y_current + seal_ring_height + saw_street_height / 2 - 2, "saw street")
+    c.drawString(dim_x, y_current + seal_ring_height + saw_street_height / 2 - 2, f"~{SAW_STREET_MINIMUM} µm")
+
+    c.drawString(label_x, y_current + seal_ring_height * 2 + saw_street_height + seal_ring_height / 2 - 2, "seal ring")
+    c.drawString(dim_x, y_current + seal_ring_height * 2 + saw_street_height + seal_ring_height / 2 - 2, f"{SEAL_RING_SIZE} µm")
+
+    # Add project die dimensions (below the detail diagram)
+    total_detail_height = seal_ring_height * 2 + saw_street_height
+    callout_y = y_current - 25
     c.setFont("Helvetica", 8)
     c.drawString(spec_x, callout_y, "Project die dimensions")
     c.drawString(spec_x, callout_y - 10, "(rounded to nearest 10 µm) =")
